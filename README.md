@@ -125,3 +125,120 @@ class Solution(object):
                 rich.append(sum(accounts[i]))
         return max(rich)
 ```
+
+
+# Task 2
+数组基础：
+数组：线性表结构。用一系列连续的内存空间来存储具有同一类型的数据
+索引：数组中的每一个元素都具有自己的下标索引，下标索引从0开始到n-1结束
+数组的特点：1.线性表：所有元素排成一条线一样的结构且每个元素只有前跟后两个方向
+            2.连续的存储空间：线性表有两种存储结构分别是顺序存储结构和链式存储结构，顺序存储结构指占用的内存空间是连续的，相邻数据元素之间，在内存上的物理位置也相邻。数组就是采用的顺序存储结构
+如何访问数组中的元素
+通过下标索引，可以直接定位到元素存放的位置
+寻址公式如下：下标i对应的数据元素地址 =数据首地址 +i × 单个数据元素所占内存大小。
+二维数组：由m行n列数组元素构成的特殊结构，本质是以数组作为元素的数组，称之为数组中的数组，二维数组可以用来处理矩阵等相关问题，比如转置矩阵，矩阵相加，矩阵相乘等。
+数组的基本操作：增，删，改，查
+## 练习题目
+1.[0066.加一](https://leetcode.cn/problems/plus-one/description/)
+```
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        val = 0
+        if digits[len(digits)-1]==9:
+            digits[len(digits)-1]=1
+            digits.append(val)
+        else: digits[len(digits)-1] += 1 
+        return digits
+```
+2.[0724.寻找数组中心下标](https://leetcode.cn/problems/find-pivot-index/description/)
+```
+class Solution(object):
+    def pivotIndex(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        N = len(nums)
+        sums_ = sum(nums)
+        preSum = 0
+        for i in range(N):
+            if preSum ==sums_ - preSum -nums[i]:
+                return i
+            preSum += nums[i]
+        return -1
+```
+3.[0189.轮转数组](https://leetcode.cn/problems/rotate-array/description/)
+```
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        if k := (k % len(nums)):
+            nums[:k], nums[k:] = nums[-k:], nums[:-k]
+```
+## 练习题目第4天
+1.[0048.旋转图像](https://leetcode.cn/problems/rotate-image/description/)
+```
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        n = len(matrix)
+        for i in range(n//2):
+            for j in range((n+1)//2):
+                tmp = matrix[i][j]
+                matrix[i][j]=matrix[n-1-j][i]
+                matrix[n-1-j][i]=matrix[n-1-i][n-1-j]
+                matrix[n-1-i][n-1-j]=matrix[j][n-1-i]
+                matrix[j][n-1-i]=tmp
+```
+2.[0054.螺旋矩阵](https://leetcode.cn/problems/spiral-matrix/description/)
+```
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        if not matrix: return []
+        l,r,t,b,res = 0,len(matrix[0])-1,0,len(matrix)-1,[]
+        while True:
+            for i in range(l,r+1): res.append(matrix[t][i])
+            t += 1
+            if t>b: break
+            for i in range(t,b+1): res.append(matrix[i][r])
+            r-=1
+            if l>r: break
+            for i in range(r,l-1,-1): res.append(matrix[b][i])
+            b -= 1
+            if t>b: break
+            for i in range(b,t-1,-1):res.append(matrix[i][l])
+            l += 1
+            if l>r: break
+        return res
+```
+3.[0498.对角线遍历](https://leetcode.cn/problems/diagonal-traverse/description/)
+```
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        ans = []
+        m,n = len(mat), len(mat[0])
+        for i in range(m+n-1):
+            if i%2:
+                x = 0 if i < n else i-n+1
+                y = i if i < n else n-1
+                while x <m and y>=0:
+                    ans.append(mat[x][y])
+                    x += 1
+                    y -= 1
+            else:
+                x = i if i < m else m - 1
+                y = 0 if i < m else i-m+1
+                while x>=0 and y < n:
+                    ans.append(mat[x][y])
+                    x-= 1
+                    y+= 1
+        return ans
+```
