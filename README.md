@@ -276,3 +276,38 @@ class Solution:
                 nums[left], nums[right] = nums[right], nums[left]
                 left += 1
 ```
+3.[912.排序数组](https://leetcode.cn/problems/sort-an-array/description/)
+```
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        return self.mergeSort(nums)
+    def merge(self, left_nums: [int], right_nums: [int]):
+                nums = []
+                left_i, right_i = 0, 0
+                while left_i< len(left_nums) and right_i< len(right_nums):
+                    if left_nums[left_i] < right_nums[right_i]:
+                        nums.append(left_nums[left_i])
+                        left_i += 1
+                    else:
+                        nums.append(right_nums[right_i])
+                        right_i += 1
+                while left_i < len(left_nums):
+                    nums.append(left_nums[left_i])
+                    left_i += 1
+                while right_i < len(right_nums):
+                    nums.append(right_nums[right_i])
+                    right_i += 1
+                return nums
+    def mergeSort(self, nums: [int]) -> [int]:
+            if len(nums) <= 1:
+                return nums
+
+            mid = len(nums) // 2
+            left_nums = self.sortArray(nums[:mid])
+            right_nums = self.sortArray(nums[mid:])
+            return self.merge(left_nums, right_nums)
+```
+
+$\sum_{i=1}^{n}{(i-1)}$ = $\frac {n(n+1)}{2}$
+
+$\int_1^\infty$
