@@ -307,7 +307,53 @@ class Solution:
             right_nums = self.sortArray(nums[mid:])
             return self.merge(left_nums, right_nums)
 ```
+## 练习题目第06天
+1.[506.相对名次](https://leetcode.cn/problems/relative-ranks/description/)
+```
+class Solution:
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+        n = len(score)
+        ans = list()
+        res = score.copy()
+        res = Solution().sortArray(res)
+        for item in score:
+            j = score.index(item)
+            k = res.index(item)
+            if k == 0:
+                ans.insert(j, "Gold Medal")
+            elif k == 1:
+                ans.insert(j, "Silver Medal")
+            elif k == 2:
+                ans.insert(j, "Bronze Medal")
+            else:
+                ans.insert(j,f"{k + 1}")
+        return ans
+    def randomPartition(self, nums: [int], low: int, high:int) -> int:
+        i = random(low, high)
+        nums[i], nums[0] = nums[0], nums[i]
+        return self.Partition(nums, low, high)
+    def Partition(self, nums: [int], low:int, high: int) -> int:
+        pivot = nums[low]
 
+        i,j = low,high
+        while i<j:
+                while i < j and nums[j] <= pivot:
+                    j -= 1
+                while i < j and nums[i] >= pivot:
+                    i += 1
+                nums[i], nums[j] = nums[j], nums[i]
+        nums[j], nums[low] = nums[low], nums[j]
+        return j
+    def quickSort(self, nums: [int], low: int, high: int) -> int:
+        if low < high:
+            pivot_i = self.Partition(nums,low,high)
+            self.quickSort(nums,low,pivot_i - 1)
+            self.quickSort(nums,pivot_i + 1, high)
+        
+        return nums
+    def sortArray(self, nums: [int]) -> [int]:
+        return self.quickSort(nums, 0, len(nums) - 1)
+```
 $\sum_{i=1}^{n}{(i-1)}$ = $\frac {n(n+1)}{2}$
 
 $\int_1^\infty$
