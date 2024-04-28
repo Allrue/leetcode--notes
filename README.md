@@ -354,6 +354,63 @@ class Solution:
     def sortArray(self, nums: [int]) -> [int]:
         return self.quickSort(nums, 0, len(nums) - 1)
 ```
+2.[88. 合并两个有序数组](https://leetcode.cn/problems/merge-sorted-array/description/)
+```
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        if not nums1:
+            return nums1
+        elif not nums2:
+            return nums1
+        else:
+            nums1[m:m + n]=nums2[0:n]        
+            nums1.sort()
+```
+```
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        if not nums1:
+            return nums1
+        elif not nums2:
+            return nums1
+        else:
+            # count = 0
+            # for i in range(len(nums1)):
+            #     if nums1[i] == 0 :
+            #         nums1[i] = nums2[count]
+            #         count += 1
+            #         if count >= len(nums2):
+            #             break
+            nums1[m:m + n]=nums2[0:n]        
+        # nums1=Solution().quickSort(nums1,0,len(nums1)-1)
+            nums1.sort()
+    # def partition(self, nums:[int], low:int , high:int) ->int:
+    #     pivot = nums[low]
+
+    #     i,j =low, high
+    #     while i < j:
+    #         while i < j and nums[j] >= pivot:
+    #             j -= 1
+    #         while i < j and nums[i] <= pivot:
+    #             i += 1
+    #         nums[i], nums[j] = nums[j], nums[i]
+
+    #     nums[j], nums[low] = nums[low], nums[j]
+
+    #     return j
+    # def quickSort(self, nums:[int], low: int, high: int) -> [int]:
+    #     if low < high:
+    #         pivot_i = self.partition(nums,low,high)
+    #         self.quickSort(nums,0,pivot_i-1)
+    #         self.quickSort(nums,pivot_i+1,high)
+    #     return nums
+```
 $\sum_{i=1}^{n}{(i-1)}$ = $\frac {n(n+1)}{2}$
 
 $\int_1^\infty$
